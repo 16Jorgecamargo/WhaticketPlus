@@ -404,7 +404,6 @@ system_nginx_conf() {
 sudo su - root << EOF
 
 cat > /etc/nginx/conf.d/whaticket.conf << 'END'
-client_max_body_size 20M;
 END
 
 EOF
