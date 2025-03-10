@@ -29,8 +29,7 @@ print_centered() {
 # Defina BANNER_ART aqui
 
 print_banner() {
-    # Clear the screen
-    clear
+    #  the screen
 
     # Print banner art line by line, centered
     while IFS= read -r line; do
