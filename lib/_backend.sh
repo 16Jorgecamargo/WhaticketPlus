@@ -194,6 +194,28 @@ EOF
   sleep 2
 }
 
+# Função para criar banco de dados com verificação se já existe
+backend_create_db() {
+  print_banner
+  printf "${WHITE} 💻 Criando banco de dados...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  sudo su - root <<EOF
+  # Verificar se o banco já existe antes de tentar criá-lo
+  RESULT=\$(mysql -u root -p${mysql_root_password} -e "SHOW DATABASES LIKE '${db_name}'" -s)
+  if [[ -z "\$RESULT" ]]; then
+    mysql -u root -p${mysql_root_password} -e "CREATE DATABASE ${db_name} CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;"
+    echo "Banco de dados ${db_name} criado com sucesso!"
+  else
+    echo "Banco de dados ${db_name} já existe. Pulando criação."
+  fi
+  
+  mysql -u root -p${mysql_root_password} -e "ALTER USER '${db_user}'@'localhost' IDENTIFIED WITH mysql_native_password BY '${db_pass}';"
+EOF
+}
+
 #######################################
 # starts backend using pm2 in 
 # production mode.

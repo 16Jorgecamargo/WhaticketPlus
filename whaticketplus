@@ -37,6 +37,8 @@ source "${PROJECT_ROOT}"/config
 inquiry_options
 
 # dependencies related
+# Fixar repositórios duplicados antes de atualizar
+system_fix_apt_duplicates
 system_update
 system_set_timezone
 system_set_ufw
